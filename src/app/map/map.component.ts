@@ -42,7 +42,6 @@ export class MapComponent implements OnInit, AfterViewInit {
       }
     ]
   };
-  stopPropagation: boolean = false;
 
   constructor(private ngZone: NgZone, private dialog: MatDialog) {
   }
@@ -52,10 +51,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   markers: Marker[] = [];
   geocoder!: MapboxGeocoder;
   opened = true
-  isClosed = true;
-  blockUpdate = false;
   modeValue: string = "side";
-  el: any[] = [];
 
   ngOnInit() {
     this.initMap();
@@ -67,10 +63,9 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.map = new mapboxgl.Map({
       container: 'map', // container ID
       style: 'mapbox://styles/mapbox/streets-v11', // style URL
-      center: [-96, 37.8], // starting position [lng, lat]
-      zoom: 3 // starting zoom
+      center: [21.70472, 43.53833], // starting position [lng, lat]
+      zoom: 13 // starting zoom
     });
-    this.markers.push(this.createMarker().setLngLat([this.map.getCenter().lng, this.map.getCenter().lat]).addTo(this.map));
     this.geocoder = new MapboxGeocoder({
       accessToken: mapboxgl.accessToken,
       mapboxgl: this.map,
@@ -82,6 +77,7 @@ export class MapComponent implements OnInit, AfterViewInit {
           new mapboxgl.Popup({offset: 25}) // add popups
             .setText(place_name)
         ).addTo(this.map));
+        this.markerEvent(center);
         return place_name;
       }
     });
@@ -130,20 +126,23 @@ export class MapComponent implements OnInit, AfterViewInit {
             )
         )
         .addTo(this.map));
-      this.marker.getElement().addEventListener('click',  () => {
-        window.alert(marker.geometry.coordinates);
-        window.alert(marker.properties.title);
-        window.alert(marker.properties.description);
-        this.openDialog(marker)
-      });
+      this.markerEvent(marker);
+    });
+  }
+
+  markerEvent(marker: any) {
+    this.marker.getElement().addEventListener('click', () => {
+      /* window.alert(marker.geometry.coordinates);
+       window.alert(marker.properties.title);
+       window.alert(marker.properties.description);*/
+      this.openDialog(marker)
     });
   }
 
   openDialog(geo: any) {
     console.log(geo, "Geo")
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = {
-    };
+    dialogConfig.data = {};
     dialogConfig.autoFocus = false;
     dialogConfig.minWidth = "30%";
     this.dialog.open(InformationDialogComponent, dialogConfig);

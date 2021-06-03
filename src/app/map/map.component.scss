@@ -2,6 +2,7 @@ body {
   margin: 0;
   padding: 0;
 }
+
 #map {
   position: absolute;
   top: 0;
@@ -40,7 +41,7 @@ body {
 .menuHeader {
   cursor: default;
   transition: all .2s ease;
-
+  text-align: center;
 
   img {
     height: 64px;
@@ -62,6 +63,7 @@ body {
   h1 .second {
     background: #004d80;
     padding: 4px;
+    vertical-align: super;
   }
 
   .mat-icon-button {
@@ -73,6 +75,7 @@ body {
     vertical-align: 0.9em;
   }
 }
+
 .home-card {
   border-radius: 4px;
   margin-top: 10px;
@@ -108,21 +111,32 @@ body {
     }
   }
 }
+
 .home-card:hover {
   border-right: 2px solid #3f51b5;
   background: rgba(0, 0, 0, 0.1);
   cursor: pointer;
 }
+
 .example-viewport {
   height: 80vh;
   max-height: 80vh;
   width: 300px;
   max-width: 300px;
 }
-.list {
-  max-width: fit-content !important;
-  overflow-y: auto;
-}
+
 mat-sidenav-content.mat-drawer-content.mat-sidenav-content {
   transition: all 0.5s ease !important;
+}
+
+@media screen and (width: 375px) {
+  .mat-drawer-inner-container {
+    overflow: hidden !important;
+  }
+  .example-viewport {
+    height: 70vh;
+    max-height: 70vh;
+    width: 300px;
+    max-width: 300px;
+  }
 }
