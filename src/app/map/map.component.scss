@@ -1,12 +1,134 @@
-#map { position: absolute; top: 0; bottom: 0; width: 100%; }
-.geocoder {
-  position: absolute;
-  z-index: 1;
-  width: 50%;
-  left: 50%;
-  margin-left: -25%;
-  top: 10px;
+body {
+  margin: 0;
+  padding: 0;
 }
-.mapboxgl-ctrl-geocoder {
-  min-width: 100%;
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+.marker {
+  background-image: url('https://www.cp-desk.com/wp-content/uploads/2019/02/map-marker-free-download-png.png');
+  background-size: cover;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.mapboxgl-popup {
+  max-width: 200px;
+}
+.mapboxgl-popup-content {
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+}
+.mat-sidenav-container {
+  height: 100vh;
+}
+
+.mat-sidenav-container .mat-sidenav {
+  padding: 10px;
+  min-width: 300px;
+}
+
+.clear {
+  vertical-align: initial !important;
+}
+
+.fab {
+  transition: all .5s ease .1s;
+  z-index: 1000;
+  position: fixed !important;
+  top: 10px;
+  left: 10px;
+}
+
+.menu {
+  transition: all .5s ease .1s;
+}
+
+.menuHeader {
+  cursor: default;
+  transition: all .2s ease;
+  display: flex;
+  justify-content: space-between;
+
+  img {
+    height: 64px;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    transition: all 0.5s ease !important;
+  }
+
+  h1 {
+    font: 700 34px/52px Limelight, 'Limelight', cursive;
+    font-family: 'Limelight', cursive;
+    color: white;
+  }
+
+  h1 .first {
+    background: #0099ff;
+    padding: 2px;
+  }
+
+  h1 .second {
+    background: #004d80;
+    padding: 4px;
+  }
+
+  .mat-icon-button {
+    height: initial !important;
+  }
+
+  & > i {
+    color: #a70532;
+    vertical-align: 0.9em;
+  }
+}
+.home-card {
+  border-radius: 4px;
+  margin-top: 10px;
+  padding: 0;
+
+  .mat-card-image {
+    margin: 0;
+    height: 100%;
+  }
+
+  .home-card-content {
+    display: flex;
+    justify-content: space-between;
+
+    & > * {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: auto;
+      max-width: 50%;
+
+      &:first-child {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+      }
+
+      &:last-child {
+        flex-direction: column;
+        align-items: start;
+        padding: 8px;
+      }
+    }
+  }
+}
+.example-viewport {
+  height: 80vh;
+  max-height: 80vh;
+  width: 22vw;
+  max-width: 22vw;
+}
+.list {
+  max-width: fit-content !important;
+  overflow-y: auto;
+}
+mat-sidenav-content.mat-drawer-content.mat-sidenav-content {
+  transition: all 0.5s ease !important;
 }

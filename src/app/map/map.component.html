@@ -1,1 +1,36 @@
-<div id="map"></div>
+<mat-sidenav-container autosize>
+  <mat-sidenav #sidenav mode="side" opened>
+    <div class="menuHeader">
+      <h1><span class="first">Rent</span><span class="second">Parking</span></h1>
+      <button mat-icon-button (click)="sidenav.toggle()" class="menu"><mat-icon class="clear">clear</mat-icon></button>
+    </div>
+      <div id="geocoder" class="geocoder">
+      </div>
+    <br>
+    <mat-divider></mat-divider>
+      <cdk-virtual-scroll-viewport [itemSize]="10 * 5" class="example-viewport">
+        <div *cdkVirtualFor="let store of stores">
+            <mat-card class="home-card" *ngFor="let feature of store.features">
+              <mat-card-content class="home-card-content">
+                <img mat-card-image
+                     src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+                     alt="Photo of a Shiba Inu">
+                <div>
+                  <mat-card-title>MR. Y</mat-card-title>
+                  <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+                </div>
+              </mat-card-content>
+            </mat-card>
+        </div>
+      </cdk-virtual-scroll-viewport>
+      <mat-divider></mat-divider>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <button mat-mini-fab color="primary" (click)="sidenav.toggle()" aria-label="Example icon button with a menu icon" class="fab">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <div id="map">
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
