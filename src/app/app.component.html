@@ -1,0 +1,40 @@
+<mat-sidenav-container>
+
+  <mat-sidenav #sidenav mode="over">
+    <label>RentParking</label>
+    <hr/>
+    <nav>
+      <button mat-button routerLink="home" (click)="clickHandler()" routerLinkActive="active">Home</button>
+      <button mat-button routerLink="about" (click)="clickHandler()" routerLinkActive="active">About</button>
+      <button mat-button routerLink="login" (click)="clickHandler()" routerLinkActive="active">Login</button>
+      <button mat-button routerLink="sign-up" (click)="clickHandler()" routerLinkActive="active">Sign Up</button>
+      <button mat-button routerLink="contact" (click)="clickHandler()" routerLinkActive="active">Contact</button>
+    </nav>
+  </mat-sidenav>
+
+  <mat-sidenav-content (scroll)="onScroll($event)">
+    <mat-toolbar class="fade" [ngClass]="{'sticky': isSticky}">
+      <header>
+        <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+        <span class="logo">
+         RentParking
+        </span>
+        <nav>
+          <button mat-button routerLink="home" routerLinkActive="active" [ngClass]="{'navItem': isSticky}">Home</button>
+          <button mat-button routerLink="about" routerLinkActive="active" [ngClass]="{'navItem': isSticky}">About
+          </button>
+          <button mat-button routerLink="login" routerLinkActive="active" [ngClass]="{'navItem': isSticky}">Login
+          </button>
+          <button mat-button routerLink="sign-up" routerLinkActive="active" [ngClass]="{'navItem': isSticky}">Sign Up
+          </button>
+          <button mat-button routerLink="contact" routerLinkActive="active" [ngClass]="{'navItem': isSticky}">Contact
+          </button>
+        </nav>
+      </header>
+    </mat-toolbar>
+    <section>
+<!--      <router-outlet></router-outlet>-->
+      <app-map></app-map>
+    </section>
+  </mat-sidenav-content>
+</mat-sidenav-container>
