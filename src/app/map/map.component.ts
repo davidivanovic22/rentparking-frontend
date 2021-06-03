@@ -5,6 +5,8 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import {Marker} from "mapbox-gl";
 import {Map} from "mapbox-gl";
 import {mark} from "@angular/compiler-cli/src/ngtsc/perf/src/clock";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import {InformationDialogComponent} from "./information-dialog/information-dialog.component";
 
 @Component({
   selector: 'app-map',
@@ -12,81 +14,37 @@ import {mark} from "@angular/compiler-cli/src/ngtsc/perf/src/clock";
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit, AfterViewInit {
-  stores = [{
+
+  geojson = {
     'type': 'FeatureCollection',
     'features': [
       {
         'type': 'Feature',
         'geometry': {
           'type': 'Point',
-          'coordinates': [-77.034084142948, 38.909671288923]
+          'coordinates': [-77.032, 38.913]
         },
         'properties': {
-          'phoneFormatted': '(202) 234-7336',
-          'phone': '2022347336',
-          'address': '1471 P St NW',
-          'city': 'Washington DC',
-          'country': 'United States',
-          'crossStreet': 'at 15th St NW',
-          'postalCode': '20005',
-          'state': 'D.C.'
+          'title': 'Mapbox',
+          'description': 'Washington, D.C.'
         }
       },
       {
         'type': 'Feature',
         'geometry': {
           'type': 'Point',
-          'coordinates': [-77.049766, 38.900772]
+          'coordinates': [-122.414, 37.776]
         },
         'properties': {
-          'phoneFormatted': '(202) 507-8357',
-          'phone': '2025078357',
-          'address': '2221 I St NW',
-          'city': 'Washington DC',
-          'country': 'United States',
-          'crossStreet': 'at 22nd St NW',
-          'postalCode': '20037',
-          'state': 'D.C.'
+          'title': 'Mapbox',
+          'description': 'San Francisco, California'
         }
-      }, {
-        'type': 'Feature',
-        'geometry': {
-          'type': 'Point',
-          'coordinates': [-77.002583742142, 38.887041080933]
-        },
-        'properties': {
-          'phoneFormatted': '(202) 547-9338',
-          'phone': '2025479338',
-          'address': '221 Pennsylvania Ave SE',
-          'city': 'Washington DC',
-          'country': 'United States',
-          'crossStreet': 'btwn 2nd & 3rd Sts. SE',
-          'postalCode': '20003',
-          'state': 'D.C.'
-        }
-      },
-
-      {
-        'type': 'Feature',
-        'geometry': {
-          'type': 'Point',
-          'coordinates': [-77.10853099823, 38.880100922392]
-        },
-        'properties': {
-          'phoneFormatted': '(703) 522-2016',
-          'phone': '7035222016',
-          'address': '4075 Wilson Blvd',
-          'city': 'Arlington',
-          'country': 'United States',
-          'crossStreet': 'at N Randolph St.',
-          'postalCode': '22203',
-          'state': 'VA'
-        }
-      },
+      }
     ]
-  }];
+  };
+  stopPropagation: boolean = false;
 
-  constructor(private ngZone: NgZone) {
+  constructor(private ngZone: NgZone, private dialog: MatDialog) {
   }
 
   map!: Map;
@@ -100,7 +58,6 @@ export class MapComponent implements OnInit, AfterViewInit {
   el: any[] = [];
 
   ngOnInit() {
-    console.log(this.stores)
     this.initMap();
     this.getMarkerPlace();
   }
@@ -143,12 +100,14 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   createMarker(): Marker {
-    return this.marker = new Marker();
+    let randomColor = Math.floor(Math.random() * 16777215).toString(16);
+    this.marker = new Marker({color: "#" + randomColor});
+    return this.marker;
   }
 
   remove() {
     this.markers.forEach(marker => {
-     marker.remove();
+      marker.remove();
     });
   }
 
@@ -160,34 +119,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   getMarkerPlace() {
-    let geojson = {
-      'type': 'FeatureCollection',
-      'features': [
-        {
-          'type': 'Feature',
-          'geometry': {
-            'type': 'Point',
-            'coordinates': [-77.032, 38.913]
-          },
-          'properties': {
-            'title': 'Mapbox',
-            'description': 'Washington, D.C.'
-          }
-        },
-        {
-          'type': 'Feature',
-          'geometry': {
-            'type': 'Point',
-            'coordinates': [-122.414, 37.776]
-          },
-          'properties': {
-            'title': 'Mapbox',
-            'description': 'San Francisco, California'
-          }
-        }
-      ]
-    };
-    geojson.features.forEach((marker) => {
+    this.geojson.features.forEach((marker) => {
       this.markers.push(this.createMarker()
         .setLngLat([marker.geometry.coordinates[0], marker.geometry.coordinates[1]])
         .setPopup(
@@ -198,30 +130,23 @@ export class MapComponent implements OnInit, AfterViewInit {
             )
         )
         .addTo(this.map));
+      this.marker.getElement().addEventListener('click',  () => {
+        window.alert(marker.geometry.coordinates);
+        window.alert(marker.properties.title);
+        window.alert(marker.properties.description);
+        this.openDialog(marker)
+      });
     });
-    console.log(this.markers)
   }
 
-  toggleText(show: boolean) {
-    if (this.modeValue === "over") {
-      return;
-    }
-    if (show == null) {
-      this.isClosed = !this.isClosed;
-    } else {
-      this.isClosed = !show;
-    }
-
-    this.blockUpdate = true;
-    window.dispatchEvent(new Event("resize"));
-  }
-
-  toggleMenu(show: boolean) {
-    if (show == null) {
-      this.opened = !this.opened;
-    } else {
-      this.opened = !show;
-    }
+  openDialog(geo: any) {
+    console.log(geo, "Geo")
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+    };
+    dialogConfig.autoFocus = false;
+    dialogConfig.minWidth = "30%";
+    this.dialog.open(InformationDialogComponent, dialogConfig);
   }
 
 

@@ -15,6 +15,7 @@ import {MaterialModule} from "./material.module";
 import { MapComponent } from './map/map.component';
 import {GoogleMapsModule} from "@angular/google-maps";
 import {GooglePlaceModule} from "ngx-google-places-autocomplete";
+import { InformationDialogComponent } from './map/information-dialog/information-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +23,8 @@ import {GooglePlaceModule} from "ngx-google-places-autocomplete";
     FirstPageComponent,
     SecondPageComponent,
     ThirdPageComponent,
-    MapComponent
+    MapComponent,
+    InformationDialogComponent
   ],
   imports: [
     BrowserModule,
