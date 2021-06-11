@@ -13,9 +13,9 @@ import { SecondPageComponent } from './second-page/second-page.component';
 import { ThirdPageComponent } from './third-page/third-page.component';
 import {MaterialModule} from "./material.module";
 import { MapComponent } from './map/map.component';
-import {GoogleMapsModule} from "@angular/google-maps";
-import {GooglePlaceModule} from "ngx-google-places-autocomplete";
 import { InformationDialogComponent } from './map/information-dialog/information-dialog.component';
+import {NgxMatDatetimePickerModule} from "@angular-material-components/datetime-picker";
+import {NgxMatMomentModule} from "@angular-material-components/moment-adapter";
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,8 +34,8 @@ import { InformationDialogComponent } from './map/information-dialog/information
     HttpClientModule,
     BrowserAnimationsModule,
     MaterialModule,
-    GoogleMapsModule,
-    GooglePlaceModule
+    NgxMatDatetimePickerModule,
+    NgxMatMomentModule,
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: "sr"},

@@ -13,7 +13,7 @@ import {InformationDialogComponent} from "./information-dialog/information-dialo
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit, AfterViewInit {
+export class MapComponent implements OnInit {
 
   geojson = {
     'type': 'FeatureCollection',
@@ -33,7 +33,18 @@ export class MapComponent implements OnInit, AfterViewInit {
         'type': 'Feature',
         'geometry': {
           'type': 'Point',
-          'coordinates': [-122.414, 37.776]
+          'coordinates': [-122.414, 30.776]
+        },
+        'properties': {
+          'title': 'Mapbox',
+          'description': 'San Francisco, California'
+        }
+      },
+      {
+        'type': 'Feature',
+        'geometry': {
+          'type': 'Point',
+          'coordinates': [-120.414, 37.776]
         },
         'properties': {
           'title': 'Mapbox',
@@ -50,12 +61,16 @@ export class MapComponent implements OnInit, AfterViewInit {
   marker!: Marker;
   markers: Marker[] = [];
   geocoder!: MapboxGeocoder;
-  opened = true
+  opened = true; // Da li je 'side-nav' otvoren
+  isClosed = true; // Da li je text stavki 'side-nav' menu prikazan
+  blockUpdate = false; // Pomocna promenljiva koja resava bug koji ima 'side-nav'
   modeValue: string = "side";
 
   ngOnInit() {
     this.initMap();
     this.getMarkerPlace();
+    window.dispatchEvent(new Event("resize"));
+    this.toggleText(true);
   }
 
   initMap() {
@@ -81,16 +96,7 @@ export class MapComponent implements OnInit, AfterViewInit {
         return place_name;
       }
     });
-
-    this.map.addControl(new mapboxgl.NavigationControl(), "bottom-right")
-    this.map.addControl(new mapboxgl.GeolocateControl({
-      positionOptions: {
-        enableHighAccuracy: true
-      },
-      trackUserLocation: true
-    }), "bottom-right")
-    this.map.addControl(new mapboxgl.FullscreenControl(), "top-right")
-    this.map.addControl(new mapboxgl.AttributionControl(), "top-right")
+    this.map.addControl(new mapboxgl.NavigationControl(), "top-right")
     document.getElementById('geocoder')!.appendChild(this.geocoder.onAdd(this.map));
     console.log(mapboxgl)
   }
@@ -105,13 +111,6 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.markers.forEach(marker => {
       marker.remove();
     });
-  }
-
-  ngAfterViewInit(): void {
-  }
-
-  click(event: google.maps.MouseEvent) {
-    console.log(event)
   }
 
   getMarkerPlace() {
@@ -132,9 +131,6 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   markerEvent(marker: any) {
     this.marker.getElement().addEventListener('click', () => {
-      /* window.alert(marker.geometry.coordinates);
-       window.alert(marker.properties.title);
-       window.alert(marker.properties.description);*/
       this.openDialog(marker)
     });
   }
@@ -152,4 +148,47 @@ export class MapComponent implements OnInit, AfterViewInit {
   logCenter() {
     console.log(JSON.stringify(this.map.getCenter()))
   }
+
+  toggleText(show: any) {
+    if (this.modeValue === "over") {
+      return;
+    }
+    if (show == null) {
+      this.isClosed = !this.isClosed;
+    } else {
+      this.isClosed = !show;
+    }
+
+    this.blockUpdate = true;
+    window.dispatchEvent(new Event("resize"));
+  }
+
+  toggleMenu(show: any) {
+    if (show == null) {
+      this.opened = !this.opened;
+    } else {
+      this.opened = !show;
+    }
+  }
+
+  onResize(event: any) {
+    if (this.blockUpdate) {
+      this.blockUpdate = false;
+      return;
+    }
+    if (event.target.innerWidth > 1280) {// 1100
+      this.modeValue = "side";
+      this.opened = true;
+      this.isClosed = false;
+    } else if (event.target.innerWidth <= 1280 && event.target.innerWidth > 480) {
+      this.opened = true;
+      this.modeValue = "side";
+      this.isClosed = false;
+    } else if (event.target.innerWidth <= 480) {
+      this.opened = false;
+      this.modeValue = "over";
+      this.isClosed = true;
+    }
+  }
+
 }

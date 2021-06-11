@@ -3,16 +3,12 @@ body {
   padding: 0;
 }
 
+
 #map {
   position: absolute;
   top: 0;
   bottom: 0;
   width: 100%;
-}
-
-.geocoder {
-  display: flex;
-  justify-content: space-between;
 }
 
 .mat-sidenav-container {
@@ -34,46 +30,25 @@ body {
   left: 10px;
 }
 
-.menu {
-  transition: all .5s ease .1s;
+
+.rentTimeWrapper {
+  justify-content: space-between;
+  display: flex;
+  margin: 0 15px;
 }
 
-.menuHeader {
-  cursor: default;
-  transition: all .2s ease;
-  text-align: center;
 
-  img {
-    height: 64px;
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-    transition: all 0.5s ease !important;
-  }
+.startRentTime {
+  margin-right: 15px;
+}
 
-  h1 {
-    font: 700 44px/52px Limelight, 'Limelight', cursive;
-    color: white;
-  }
+.geocoder {
+  z-index: 2;
+  margin: auto 0 auto 0;
+}
 
-  h1 .first {
-    background: #0099ff;
-    padding: 2px;
-  }
-
-  h1 .second {
-    background: #004d80;
-    padding: 4px;
-    vertical-align: super;
-  }
-
-  .mat-icon-button {
-    height: initial !important;
-  }
-
-  & > i {
-    color: #a70532;
-    vertical-align: 0.9em;
-  }
+.menu {
+  transition: all .5s ease .1s;
 }
 
 .home-card {
@@ -128,6 +103,8 @@ body {
 mat-sidenav-content.mat-drawer-content.mat-sidenav-content {
   transition: all 0.5s ease !important;
 }
+
+
 
 @media screen and (width: 375px) {
   .mat-drawer-inner-container {

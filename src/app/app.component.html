@@ -1,7 +1,8 @@
-<!--<mat-sidenav-container>
-
+<mat-sidenav-container>
   <mat-sidenav #sidenav mode="over">
-    <label>RentParking</label>
+    <div class="menuHeader">
+      <h1><span class="first">Rent</span><span class="second">Parking</span></h1>
+    </div>
     <hr/>
     <nav>
       <button mat-button routerLink="home" (click)="clickHandler()" routerLinkActive="active">Home</button>
@@ -12,13 +13,13 @@
     </nav>
   </mat-sidenav>
 
-  <mat-sidenav-content (scroll)="onScroll($event)">
-    <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
-    <mat-toolbar class="fade" [ngClass]="{'sticky': isSticky}">
+  <mat-sidenav-content (scroll)="onScroll($event)" class="sidenav-content">
+    <mat-toolbar class="mat-elevation-z11">
       <header>
-        <span class="logo">
-         RentParking
-        </span>
+        <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+        <div class="menuHeader">
+          <h1><span class="first">Rent</span><span class="second">Parking</span></h1>
+        </div>
         <nav>
           <button mat-button routerLink="home" routerLinkActive="active" [ngClass]="{'navItem': isSticky}">Home</button>
           <button mat-button routerLink="about" routerLinkActive="active" [ngClass]="{'navItem': isSticky}">About
@@ -34,8 +35,7 @@
     </mat-toolbar>
     <section>
      <router-outlet></router-outlet>
-      <app-map></app-map>
+<!--      <app-map></app-map>-->
     </section>
   </mat-sidenav-content>
-</mat-sidenav-container>-->
-<app-map></app-map>
+</mat-sidenav-container>

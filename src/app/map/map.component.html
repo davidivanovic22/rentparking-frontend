@@ -1,35 +1,41 @@
-<mat-sidenav-container autosize>
-  <mat-sidenav #sidenav mode="side" opened>
-    <div class="menuHeader">
-      <h1><span class="first">Rent</span><span class="second">Parking</span></h1>
-    </div>
-      <div id="geocoder" class="geocoder">
-        <button mat-raised-button (click)="sidenav.toggle()" class="menu"><mat-icon class="clear">clear</mat-icon></button>
-      </div>
-    <br>
-    <mat-divider></mat-divider>
-      <cdk-virtual-scroll-viewport [itemSize]="10 * 5" class="example-viewport">
-        <div *cdkVirtualFor="let geo of geojson.features">
-            <mat-card class="home-card" (click)="openDialog(geo)">
-              <mat-card-content class="home-card-content">
-                <img mat-card-image
-                     src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-                     alt="Photo of a Shiba Inu">
-                <div>
-                  <mat-card-title>{{geo.properties.description}}</mat-card-title>
-                  <mat-card-subtitle>{{geo.geometry.coordinates}}</mat-card-subtitle>
-                </div>
-              </mat-card-content>
-            </mat-card>
-        </div>
-      </cdk-virtual-scroll-viewport>
+<div class="rentTimeWrapper">
+  <div id="geocoder" class="geocoder">
+  </div>
+  <div class="rentTime">
+    <mat-form-field class="startRentTime">
+      <input matInput placeholder="Start">
+    </mat-form-field>
+    <mat-form-field class="endRentTime">
+      <input matInput placeholder="End">
+    </mat-form-field>
+  </div>
+</div>
+<mat-sidenav-container autosize class="map-container">
+  <mat-sidenav #sidenav mode="side" (closed)="toggleMenu(true);"
+               (mouseenter)="toggleText(false)"
+               (mouseleave)="toggleText(true)"
+               [(opened)]="opened">
       <mat-divider></mat-divider>
+    <cdk-virtual-scroll-viewport [itemSize]="10 * 5" class="example-viewport">
+      <div *cdkVirtualFor="let geo of geojson.features">
+        <mat-card class="home-card" (click)="openDialog(geo)">
+          <mat-card-content class="home-card-content">
+            <img mat-card-image
+                 src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+                 alt="Photo of a Shiba Inu">
+            <div>
+              <mat-card-title>{{geo.properties.description}}</mat-card-title>
+              <mat-card-subtitle>{{geo.geometry.coordinates}}</mat-card-subtitle>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </cdk-virtual-scroll-viewport>
+    <mat-divider></mat-divider>
   </mat-sidenav>
-  <mat-sidenav-content>
-    <button mat-mini-fab  (click)="sidenav.toggle()" aria-label="Example icon button with a menu icon" class="fab">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <div id="map"></div>
+  <mat-sidenav-content (window:resize)="onResize($event)">
+    <div id="map">
+          </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
 

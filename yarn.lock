@@ -121,6 +121,20 @@
     "ora" "5.4.0"
     "rxjs" "6.6.7"
 
+"@angular-material-components/datetime-picker@^6.0.2":
+  "integrity" "sha512-CFuzjEiGfDexRIozX41O6bCwwlZPB7hTKXaX8l66kvBf+aTSQhFolWMItgyDDtHyTEVDGiaYGNvFX7lWmBDwFQ=="
+  "resolved" "https://registry.npmjs.org/@angular-material-components/datetime-picker/-/datetime-picker-6.0.2.tgz"
+  "version" "6.0.2"
+  dependencies:
+    "tslib" "^2.1.0"
+
+"@angular-material-components/moment-adapter@^6.0.0":
+  "integrity" "sha512-YnUfaaYIsK1xeN3D84RGc500ieh7BrgSK1DNh3abneeKGTS9es9FJPkqK3JW9P+8460YQ4hxrMMeerGLG30C5A=="
+  "resolved" "https://registry.npmjs.org/@angular-material-components/moment-adapter/-/moment-adapter-6.0.0.tgz"
+  "version" "6.0.0"
+  dependencies:
+    "tslib" "^2.1.0"
+
 "@angular/animations@~12.0.2":
   "integrity" "sha512-5RZ5a8ouVZ3iDy29uZ7jCryisWjX2c9xjIG5F5rn+mBL3UkxzzUDFhql9rP0PB5G+aGgaElSlTatGJ85mY0XvA=="
   "resolved" "https://registry.npmjs.org/@angular/animations/-/animations-12.0.2.tgz"
@@ -128,7 +142,7 @@
   dependencies:
     "tslib" "^2.1.0"
 
-"@angular/cdk@^12.0.2":
+"@angular/cdk@^12.0.1", "@angular/cdk@^12.0.2":
   "integrity" "sha512-1JGayyUJmwaul5YSEgb780aWxk+MLVG5FakVaxz5NtbPZx19ZyOuZqytCh5js11LsBDipF5/kirYhJPBFlMbWQ=="
   "resolved" "https://registry.npmjs.org/@angular/cdk/-/cdk-12.0.2.tgz"
   "version" "12.0.2"
@@ -163,19 +177,19 @@
     "symbol-observable" "4.0.0"
     "uuid" "8.3.2"
 
+"@angular/common@^12.0.0", "@angular/common@~12.0.2":
+  "integrity" "sha512-KJFtqdIGVrF97iK3zcN9FoQ1fDsc/u4ez1Qtx0HdH21qAuAvK/FYybg4r1G6miXoUJcO8hu9oRddEoiNPkXAew=="
+  "resolved" "https://registry.npmjs.org/@angular/common/-/common-12.0.2.tgz"
+  "version" "12.0.2"
+  dependencies:
+    "tslib" "^2.1.0"
+
 "@angular/common@^4.0.0":
   "integrity" "sha512-5R0POjbT4CR+8vXS7P33SiozJpTEKDsHq07EMm90OCwoofU5DIKDLNyEqr362zsbpzGUTmhGbSiLZib5Qt4djA=="
   "resolved" "https://registry.npmjs.org/@angular/common/-/common-4.4.7.tgz"
   "version" "4.4.7"
   dependencies:
     "tslib" "^1.7.1"
-
-"@angular/common@~12.0.2":
-  "integrity" "sha512-KJFtqdIGVrF97iK3zcN9FoQ1fDsc/u4ez1Qtx0HdH21qAuAvK/FYybg4r1G6miXoUJcO8hu9oRddEoiNPkXAew=="
-  "resolved" "https://registry.npmjs.org/@angular/common/-/common-12.0.2.tgz"
-  "version" "12.0.2"
-  dependencies:
-    "tslib" "^2.1.0"
 
 "@angular/compiler-cli@~12.0.2":
   "integrity" "sha512-ocm/c4ZcdtlvMSlN1L6Asyx4nYC4qA0j3+H3mKl/ds8bq/8Gb9cxOiu3hqmUKgovXF/Wue6orsWLzHowuxfagA=="
@@ -211,6 +225,13 @@
   dependencies:
     "tslib" "^2.1.0"
 
+"@angular/core@^12.0.0", "@angular/core@~12.0.2":
+  "integrity" "sha512-RBTl8L2ckSI3n2lo9rmwlUeZAuEd/TWUjoidoxPYWrKfbnFwKX65idCCbWLJivSVIBnPQYvAdC+3k4w40N9AWA=="
+  "resolved" "https://registry.npmjs.org/@angular/core/-/core-12.0.2.tgz"
+  "version" "12.0.2"
+  dependencies:
+    "tslib" "^2.1.0"
+
 "@angular/core@^4.0.0":
   "integrity" "sha512-Jxs6gNTl5KjXflg5vi5rlnokq1johFccN94qSOgDv+Mg1iuGF2i9p7EHkw3Y8jBCVaSLw1qgHE+wMb6KTlJDLA=="
   "resolved" "https://registry.npmjs.org/@angular/core/-/core-4.4.7.tgz"
@@ -218,9 +239,9 @@
   dependencies:
     "tslib" "^1.7.1"
 
-"@angular/core@~12.0.2":
-  "integrity" "sha512-RBTl8L2ckSI3n2lo9rmwlUeZAuEd/TWUjoidoxPYWrKfbnFwKX65idCCbWLJivSVIBnPQYvAdC+3k4w40N9AWA=="
-  "resolved" "https://registry.npmjs.org/@angular/core/-/core-12.0.2.tgz"
+"@angular/forms@^12.0.0", "@angular/forms@~12.0.2":
+  "integrity" "sha512-tHIYb3c6H2M9qSi/SJOtZqJ8XWi3LM5mhA4sDpEGxfJ8RLVTcujd2gYnJ0N3vcpmWwy3mA/EayhAC2bhgWAazA=="
+  "resolved" "https://registry.npmjs.org/@angular/forms/-/forms-12.0.2.tgz"
   "version" "12.0.2"
   dependencies:
     "tslib" "^2.1.0"
@@ -231,13 +252,6 @@
   "version" "4.4.7"
   dependencies:
     "tslib" "^1.7.1"
-
-"@angular/forms@~12.0.2":
-  "integrity" "sha512-tHIYb3c6H2M9qSi/SJOtZqJ8XWi3LM5mhA4sDpEGxfJ8RLVTcujd2gYnJ0N3vcpmWwy3mA/EayhAC2bhgWAazA=="
-  "resolved" "https://registry.npmjs.org/@angular/forms/-/forms-12.0.2.tgz"
-  "version" "12.0.2"
-  dependencies:
-    "tslib" "^2.1.0"
 
 "@angular/google-maps@^12.0.2":
   "integrity" "sha512-wxE0i7ywHh+2DtVe2uJpRyupC7ciN5EOT3DPatcWjS9O32KjTlqU6kd49neKmnfhpUFFkMI584ZcwzBmc/CvRg=="
@@ -254,7 +268,7 @@
   dependencies:
     "tslib" "^1.7.1"
 
-"@angular/material@^12.0.2":
+"@angular/material@^12.0.1", "@angular/material@^12.0.2":
   "integrity" "sha512-jTH53w4iVNk+3K5ciFyHeRhNNtV6TzeuNTSELeme4l3t5FP3VqFTdE56Q55MrV2RMIzDKLYEpiqSiQf+8ZuGSA=="
   "resolved" "https://registry.npmjs.org/@angular/material/-/material-12.0.2.tgz"
   "version" "12.0.2"
@@ -275,19 +289,19 @@
   dependencies:
     "tslib" "^2.1.0"
 
+"@angular/platform-browser@^12.0.0", "@angular/platform-browser@~12.0.2":
+  "integrity" "sha512-m1tPOpNZdnp8jrtFP3FrjpBV+S/rd5HLd4Q9MaC62LJYf8VvRx8wKdUO8tBDJYPbGiHGL4q4BUvKswrzfFWbXg=="
+  "resolved" "https://registry.npmjs.org/@angular/platform-browser/-/platform-browser-12.0.2.tgz"
+  "version" "12.0.2"
+  dependencies:
+    "tslib" "^2.1.0"
+
 "@angular/platform-browser@^4.0.0":
   "integrity" "sha512-5WGMhUbaepmNoE597N/6R4jDdSqe4wwJblfi6bOJI34QStmD6QRnmg3H7ujr8lLhRBo9P3zH+hn7bM3RxUIEJg=="
   "resolved" "https://registry.npmjs.org/@angular/platform-browser/-/platform-browser-4.4.7.tgz"
   "version" "4.4.7"
   dependencies:
     "tslib" "^1.7.1"
-
-"@angular/platform-browser@~12.0.2":
-  "integrity" "sha512-m1tPOpNZdnp8jrtFP3FrjpBV+S/rd5HLd4Q9MaC62LJYf8VvRx8wKdUO8tBDJYPbGiHGL4q4BUvKswrzfFWbXg=="
-  "resolved" "https://registry.npmjs.org/@angular/platform-browser/-/platform-browser-12.0.2.tgz"
-  "version" "12.0.2"
-  dependencies:
-    "tslib" "^2.1.0"
 
 "@angular/router@^4.0.0":
   "integrity" "sha512-WaVnBP41UdrUwReSUgB5YE6C37PrYFSaiFAoPRTx4RC0jeRE+ncFWwessVIh0kvfEK4ROkO3QK2BtLzMUY5GNg=="
@@ -5904,6 +5918,11 @@
   "integrity" "sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw=="
   "resolved" "https://registry.npmjs.org/mkdirp/-/mkdirp-1.0.4.tgz"
   "version" "1.0.4"
+
+"moment@^2.18.1":
+  "integrity" "sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ=="
+  "resolved" "https://registry.npmjs.org/moment/-/moment-2.29.1.tgz"
+  "version" "2.29.1"
 
 "ms@^2.0.0", "ms@^2.1.1", "ms@2.1.2":
   "integrity" "sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w=="
