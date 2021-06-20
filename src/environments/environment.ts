@@ -4,18 +4,18 @@
 
 export const environment = {
   production: false,
-  baseUrl: "http://localhost:8080/rentparking/",
-  firebase: {
-    apiKey: 'AIzaSyDcXxlaPbg19xApxVkD8BPpPPbDETQ5Hk8',
-    authDomain: 'parkingrent-6db89.firebaseapp.com',
-    databaseURL:
-      'https://parkingrent-6db89-default-rtdb.europe-west1.firebasedatabase.app',
-    projectId: 'parkingrent-6db89',
-    storageBucket: 'parkingrent-6db89.appspot.com',
-    messagingSenderId: '1037546019431',
-    appId: '1:1037546019431:web:42b220c7e0a2ba60cc92c2',
-    measurementId: 'G-0YHY3DBCYK'
-  }
+  baseUrl: "http://localhost:8080/rentparking",
+  // firebase: {
+  //   apiKey: 'AIzaSyDcXxlaPbg19xApxVkD8BPpPPbDETQ5Hk8',
+  //   authDomain: 'parkingrent-6db89.firebaseapp.com',
+  //   databaseURL:
+  //     'https://parkingrent-6db89-default-rtdb.europe-west1.firebasedatabase.app',
+  //   projectId: 'parkingrent-6db89',
+  //   storageBucket: 'parkingrent-6db89.appspot.com',
+  //   messagingSenderId: '1037546019431',
+  //   appId: '1:1037546019431:web:42b220c7e0a2ba60cc92c2',
+  //   measurementId: 'G-0YHY3DBCYK'
+  // }
 };
 
 /*

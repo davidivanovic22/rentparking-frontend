@@ -4,7 +4,6 @@ import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import {Marker} from "mapbox-gl";
 import {Map} from "mapbox-gl";
-import {mark} from "@angular/compiler-cli/src/ngtsc/perf/src/clock";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {InformationDialogComponent} from "./information-dialog/information-dialog.component";
 

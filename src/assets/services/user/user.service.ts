@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import {User} from "../../../@types/entity/User";
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,10 @@ export class UserService {
 
   save(user: any): Observable<void> {
     return this.http.post<void>(`${environment.baseUrl}/users`, user);
+  }
+
+  saveSocialUser(socialUser: any): Observable<User> {
+    return this.http.post<User>(`${environment.baseUrl}/users/socialUser`, socialUser);
   }
 
   update(user: any): Observable<void> {

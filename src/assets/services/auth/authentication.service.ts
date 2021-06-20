@@ -4,6 +4,8 @@ import jwt_decode from 'jwt-decode';
 import {Router} from '@angular/router';
 import {environment} from 'src/environments/environment';
 import {FacebookLoginProvider, GoogleLoginProvider, SocialAuthService} from "angularx-social-login";
+import {UserService} from "../user/user.service";
+import {User} from "../../../@types/entity/User";
 
 // export interface IUserToken {
 //   username?: string;
@@ -15,14 +17,13 @@ import {FacebookLoginProvider, GoogleLoginProvider, SocialAuthService} from "ang
 export class AuthenticationService {
   private userToken: any;
   private token: any;
-  private oauthToken: any;
 
   httpHeaders = new HttpHeaders({
     'Content-Type': 'application/json',
     Authorization: 'Bearer xxx',
   });
 
-  constructor(private http: HttpClient, private router: Router, private socialAuth: SocialAuthService) {
+  constructor(private http: HttpClient, private router: Router, private socialAuth: SocialAuthService, private userService: UserService) {
     try {
       this.token = sessionStorage.getItem('userToken');
       this.userToken = jwt_decode(this.token);
@@ -38,7 +39,7 @@ export class AuthenticationService {
       responseType: 'text'
       , headers: this.httpHeaders
     }).subscribe(token => {
-
+      console.log(token)
       if (token) {
         this.userToken = jwt_decode(token);
         this.token = token;
@@ -55,9 +56,11 @@ export class AuthenticationService {
     } else if (socialPlatform == "google") {
       socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
     }
+
     this.socialAuth.signIn(socialPlatformProvider).then(data => {
-      this.oauthToken = data;
-      this.router.navigate(['home']);
+      this.userService.saveSocialUser(data).subscribe(res => {
+       this.login(res.username, res.username + "123" ? res.username + "123" : "");
+      });
     });
   }
 
@@ -81,9 +84,7 @@ export class AuthenticationService {
   }
 
   get isLoggedIn(): boolean {
-
-    console.log(!!this.userJwtToken, " || ", this.oauthToken)
-    return !!this.userJwtToken || !!this.oauthToken;
+    return !!this.userJwtToken;
   }
 
   isAdmin(): boolean {
