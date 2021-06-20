@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import * as MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import * as mapboxgl from "mapbox-gl";
 import {FormControl, FormGroup} from "@angular/forms";
+import {SocialAuthService} from "angularx-social-login";
+import {AuthenticationService} from "../../assets/services/auth/authentication.service";
 
 @Component({
   selector: 'app-home',
@@ -14,7 +16,8 @@ export class HomeComponent implements OnInit {
     start: new FormControl(null),
     end: new FormControl(null)
   });
-  constructor() {
+
+  constructor(private authService: AuthenticationService) {
   }
 
   ngOnInit(): void {
@@ -29,16 +32,7 @@ export class HomeComponent implements OnInit {
     });
 
     this.geocoder.addTo('#geocoder1');
-    //
-    // var results = document.getElementById('result');
-    //
-    // geocoder.on('result', function (e) {
-    //   results.innerText = JSON.stringify(e.result, null, 2);
-    // });
-    //
-    // geocoder.on('clear', function () {
-    //   results.innerText = '';
-    // });
-  }
+    console.log(this.authService.isLoggedIn)
 
+  }
 }

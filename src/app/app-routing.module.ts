@@ -5,6 +5,7 @@ import {SecondPageComponent} from "./second-page/second-page.component";
 import {ThirdPageComponent} from "./third-page/third-page.component";
 import {HomeComponent} from "./home/home.component";
 import {MapComponent} from "./map/map.component";
+import {LoginComponent} from "./login/login.component";
 
 const routes: Routes = [
   {
@@ -21,7 +22,7 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    component: SecondPageComponent
+    component: LoginComponent
   },
   {
     path: 'contact',
