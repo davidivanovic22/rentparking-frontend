@@ -21,7 +21,11 @@ export class HomeComponent implements OnInit {
     mapboxgl!.accessToken = 'pk.eyJ1IjoiZGF2aWRpdmFub3ZpYzIyIiwiYSI6ImNrcGZpZGNtbjI3dXUydm5seGh5ajV4aXYifQ.4Q1c-djtUvRf_Bwro4t6hg';
     this.geocoder = new MapboxGeocoder({
       accessToken: mapboxgl.accessToken,
-      types: 'country,region,place,postcode,locality,neighborhood'
+      getItemValue: ({center, place_name}) => {
+        console.log(place_name);
+        console.log(center);
+        return place_name;
+      }
     });
 
     this.geocoder.addTo('#geocoder1');

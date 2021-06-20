@@ -1,3 +1,3 @@
 export enum BookingStatus {
-  RESERVED
+  RESERVED, CANCELLED
 }
