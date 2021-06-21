@@ -1,11 +1,13 @@
-import {AfterViewInit, Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
+import {Component, NgZone, OnInit} from '@angular/core';
 import * as mapboxgl from "mapbox-gl";
+import {Map, Marker} from "mapbox-gl";
 import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
-import {Marker} from "mapbox-gl";
-import {Map} from "mapbox-gl";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {InformationDialogComponent} from "./information-dialog/information-dialog.component";
+import {LocationService} from "../../assets/services/location/location.service";
+// import {Booking} from "../../@types/entity/Booking";
+import {BookingService} from "../../assets/services/booking/booking.service";
 
 @Component({
   selector: 'app-map',
@@ -52,8 +54,9 @@ export class MapComponent implements OnInit {
       }
     ]
   };
+  // geojson: Booking[] = [];
 
-  constructor(private ngZone: NgZone, private dialog: MatDialog) {
+  constructor(private ngZone: NgZone, private dialog: MatDialog, private locationService: LocationService, private  bookingService: BookingService) {
   }
 
   map!: Map;
@@ -66,6 +69,9 @@ export class MapComponent implements OnInit {
   modeValue: string = "side";
 
   ngOnInit() {
+    this.bookingService.getAllByBookingStatusAndLocationCity("RESERVED", "Aleksinac").subscribe(data => {
+      console.log(data, "Booking")
+    });
     this.initMap();
     this.getMarkerPlace();
     window.dispatchEvent(new Event("resize"));
@@ -79,6 +85,37 @@ export class MapComponent implements OnInit {
       style: 'mapbox://styles/mapbox/streets-v11', // style URL
       center: [21.70472, 43.53833], // starting position [lng, lat]
       zoom: 13 // starting zoom
+    });
+
+
+    /*
+* settlement-label
+*
+* */
+
+
+    this.map.on("click", (data) => {
+      this.map.queryRenderedFeatures().map(loc => {
+        console.log(data.lngLat.lng)
+
+        let location: any = {};
+        if (loc) {
+          location.name = loc.properties!.name;
+          location.address = loc.properties!.name;
+        }
+        location.city = "Leskovac";
+        // @ts-ignore
+        location.longitude = loc.geometry.coordinates[0][0];
+        // @ts-ignore
+        location.latitude = loc.geometry.coordinates[0][1];
+        if (location.name) {
+          console.log(location)
+          this.locationService.save(location).subscribe(loc => {
+
+          });
+        }
+      });
+
     });
     this.geocoder = new MapboxGeocoder({
       accessToken: mapboxgl.accessToken,
@@ -100,7 +137,9 @@ export class MapComponent implements OnInit {
     console.log(mapboxgl)
   }
 
-  createMarker(): Marker {
+  createMarker()
+    :
+    Marker {
     let randomColor = Math.floor(Math.random() * 16777215).toString(16);
     this.marker = new Marker({color: "#" + randomColor});
     return this.marker;
@@ -113,28 +152,34 @@ export class MapComponent implements OnInit {
   }
 
   getMarkerPlace() {
-    this.geojson.features.forEach((marker) => {
-      this.markers.push(this.createMarker()
-        .setLngLat([marker.geometry.coordinates[0], marker.geometry.coordinates[1]])
-        .setPopup(
-          new mapboxgl.Popup({offset: 25}) // add popups
-            .setText(
-              marker.properties.title + "\n\n" +
-              marker.properties.description
-            )
-        )
-        .addTo(this.map));
-      this.markerEvent(marker);
-    });
+    // this.geojson.features.forEach((marker) => {
+    //   this.markers.push(this.createMarker()
+    //     .setLngLat([marker.geometry.coordinates[0], marker.geometry.coordinates[1]])
+    //     .setPopup(
+    //       new mapboxgl.Popup({offset: 25}) // add popups
+    //         .setText(
+    //           marker.properties.title + "\n\n" +
+    //           marker.properties.description
+    //         )
+    //     )
+    //     .addTo(this.map));
+    //   this.markerEvent(marker);
+    // });
   }
 
-  markerEvent(marker: any) {
+  markerEvent(marker
+                :
+                any
+  ) {
     this.marker.getElement().addEventListener('click', () => {
       this.openDialog(marker)
     });
   }
 
-  openDialog(geo: any) {
+  openDialog(geo
+               :
+               any
+  ) {
     console.log(geo, "Geo")
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {};
@@ -148,7 +193,10 @@ export class MapComponent implements OnInit {
     console.log(JSON.stringify(this.map.getCenter()))
   }
 
-  toggleText(show: any) {
+  toggleText(show
+               :
+               any
+  ) {
     if (this.modeValue === "over") {
       return;
     }
@@ -162,7 +210,10 @@ export class MapComponent implements OnInit {
     window.dispatchEvent(new Event("resize"));
   }
 
-  toggleMenu(show: any) {
+  toggleMenu(show
+               :
+               any
+  ) {
     if (show == null) {
       this.opened = !this.opened;
     } else {
@@ -170,7 +221,10 @@ export class MapComponent implements OnInit {
     }
   }
 
-  onResize(event: any) {
+  onResize(event
+             :
+             any
+  ) {
     if (this.blockUpdate) {
       this.blockUpdate = false;
       return;

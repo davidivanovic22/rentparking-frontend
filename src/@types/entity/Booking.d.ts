@@ -1,7 +1,6 @@
 import {Identifiable} from "./Identifiable";
 import {Parking} from "./Parking";
 import {User} from "./User";
-import {BookingStatus} from "./data/BookingStatus";
 
 
 export interface Booking extends Identifiable {
@@ -10,5 +9,14 @@ export interface Booking extends Identifiable {
   user: User;
   from: string;
   to: string;
-  bookingStatus: BookingStatus;
+  bookingStatus: Booking.KeyEnum;
+}
+
+export namespace Booking {
+  export type KeyEnum = 'RESERVED' | 'CANCELLED';
+  // @ts-ignore
+  export const KeyEnum = {
+    Reserved: 'PREZIME' as KeyEnum,
+    Cancelled: 'CANCELLED' as KeyEnum,
+  };
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../../environments/environment";
+import {Booking} from "../../../@types/entity/Booking";
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,9 @@ export class BookingService {
 
   getAll(): Observable<any> {
     return this.http.get<any>(`${environment.baseUrl}/bookings/`);
+  }
+  getAllByBookingStatusAndLocationCity(bookingStatus: Booking.KeyEnum, city: string): Observable<any> {
+    return this.http.get<any>(`${environment.baseUrl}/bookings/` + bookingStatus + `/` + city +`/booking_status_and_location_city`);
   }
 
   save(booking: any): Observable<void> {
