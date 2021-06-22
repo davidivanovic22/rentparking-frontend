@@ -1,22 +1,31 @@
 <div id="home" class="background">
   <div class="rentTimeWrapper">
     <h1>Find parking in seconds</h1>
+    <form [formGroup]="form">
     <div class="rentTime">
       <div id="geocoder1" class="geocoder">
       </div>
-      <mat-form-field class="startRentTime" appearance="outline">
-        <input matInput [ngxMatDatetimePicker]="picker" placeholder="Start" class="pickerInput" readonly>
-        <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
-        <ngx-mat-datetime-picker #picker>
-        </ngx-mat-datetime-picker>
-      </mat-form-field>
-      <mat-form-field class="startRentTime" appearance="outline">
-        <input matInput [ngxMatDatetimePicker]="picker1" placeholder="End" class="pickerInput" readonly>
-        <mat-datepicker-toggle matSuffix [for]="$any(picker1)"></mat-datepicker-toggle>
-        <ngx-mat-datetime-picker #picker1>
-        </ngx-mat-datetime-picker>
-      </mat-form-field>
+      <div class="rentField">
+        <mat-form-field class="startRentTime" appearance="outline">
+          <input matInput formControlName="start" [ngxMatDatetimePicker]="picker" placeholder="Start" class="pickerInput" readonly>
+          <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+          <ngx-mat-datetime-picker #picker>
+          </ngx-mat-datetime-picker>
+        </mat-form-field>
+        <mat-form-field class="startRentTime" appearance="outline">
+          <input matInput formControlName="end" [ngxMatDatetimePicker]="picker1" placeholder="End" class="pickerInput" readonly>
+          <mat-datepicker-toggle matSuffix [for]="$any(picker1)"></mat-datepicker-toggle>
+          <ngx-mat-datetime-picker #picker1>
+          </ngx-mat-datetime-picker>
+        </mat-form-field>
+      </div>
+      <button mat-raised-button class="searchParkingBtn" color="primary" [routerLink]="['/rent', {start: form.value.start, end: form.value.end,
+       placeName: placeName, latitude: coordinates[0], longitude: coordinates[1]}]">
+        <mat-icon>local_parking</mat-icon>
+        Search Parking
+      </button>
     </div>
+    </form>
   </div>
 </div>
 

@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Limelight&display=swap');
 @import '~mapbox-gl/dist/mapbox-gl.css';
 @import '~@mapbox/mapbox-gl-geocoder/lib/mapbox-gl-geocoder.css';
+@import "assets/styles/main-theme";
 
 * {
   padding: 0;
@@ -22,3 +23,15 @@
 .mapboxgl-ctrl-geocoder {
   width: 100% !important;
 }
+
+.mat-stroked-button:not(:disabled) {
+  background-color: transparent;
+  color: $parking-btn-color !important;
+  border-color: $parking-btn-color !important;
+}
+
+.mat-stroked-button:not(:disabled):hover {
+  background-color: #4f7496;
+  color: whitesmoke !important;
+}
+

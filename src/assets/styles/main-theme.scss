@@ -1,0 +1,47 @@
+@use '~@angular/material' as mat;
+
+@include mat.core();
+
+$parking-color: #1a2732;
+$parking-btn-color: #397ebd;
+$parking-color-10: rgba(5, 40, 167, 0.1);
+
+$mat-light-parking: (
+  50 : #cdd9e5,
+  100 : #bccddc,
+  200 : #9bb3ca,
+  300 : #466786,
+  400 : #354d64,
+  500 : #21303e,
+  600 : #1a2732,
+  700 : #1a2739,
+  800 : #1a2743,
+  900 : #1a2749,
+  A100 : #8aa7c1,
+  A200 : #4f7496,
+  A400 :#3e5a75,
+  A700 : #2c4054,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #ffffff,
+    400 : #ffffff,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #ffffff,
+    A700 : #ffffff,
+  )
+);
+
+
+$app-light-theme: mat.define-light-theme(mat.define-palette($mat-light-parking), mat.define-palette(mat.$gray-palette, A200, A100, A400), mat.define-palette($mat-light-parking));
+
+//@include mat.angular-material-theme($app-light-theme);
+@include mat.all-component-themes($app-light-theme);
+

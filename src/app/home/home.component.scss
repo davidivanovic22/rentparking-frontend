@@ -1,7 +1,7 @@
 .background {
   width: 100%;
   height: 100vh;
-  background: url('https://c4.wallpaperflare.com/wallpaper/886/354/418/parking-lot-garages-architecture-cesar-bazkez-wallpaper-preview.jpg') no-repeat;
+  background: url('https://wallpaperaccess.com/full/4327781.jpg') no-repeat;
   background-size: cover;
   color: white;
   //text-align: center;
@@ -11,13 +11,17 @@
 
   h1 {
     font-size: 40px;
+    text-align: center;
+    margin-bottom: 100px;
   }
+}
+.rentTime{
+  margin-bottom: 100px;
 }
 
 .rentTimeWrapper {
   margin: auto 55px;
   max-width: 500px;
-
 }
 
 ::ng-deep .mapboxgl-ctrl-geocoder{
@@ -43,4 +47,8 @@
 
 .pickerInput {
   color: gray !important;
+}
+
+.searchParkingBtn {
+  width: 100% !important;
 }

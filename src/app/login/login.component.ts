@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormControl, Validators, FormGroupDirective, NgForm} from '@angular/forms';
 import {AuthenticationService} from 'src/assets/services/auth/authentication.service';
-import {GoogleLoginProvider, SocialAuthService} from "angularx-social-login";
+import {FacebookLoginProvider, GoogleLoginProvider, SocialAuthService} from "angularx-social-login";
 import {Router} from "@angular/router";
 
 @Component({
@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
     password: new FormControl('', Validators.required),
   });
 
-  constructor(private authService: AuthenticationService) {
+  constructor(private authService: AuthenticationService, private socialAuth: SocialAuthService) {
   }
 
   ngOnInit(): void {
@@ -31,7 +31,17 @@ export class LoginComponent implements OnInit {
   }
 
   loginWithSocial(socialPlatform: string) {
-    this.authService.loginWithSocial(socialPlatform);
-  }
+    let socialPlatformProvider: any;
+    if (socialPlatform == "facebook") {
+      socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
+    } else if (socialPlatform == "google") {
+      socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
+    }
 
+    this.socialAuth.signIn(socialPlatformProvider).then(data => {
+      console.log(data)
+      this.form.get("username")?.setValue(data.email.split("@")[0]);
+    });
+
+  }
 }

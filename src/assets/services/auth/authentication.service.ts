@@ -49,18 +49,14 @@ export class AuthenticationService {
     });
   }
 
-  loginWithSocial(socialPlatform: string) {
-    let socialPlatformProvider: any;
-    if (socialPlatform == "facebook") {
-      socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
-    } else if (socialPlatform == "google") {
-      socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
-    }
-
-    this.socialAuth.signIn(socialPlatformProvider).then(data => {
-      this.userService.saveSocialUser(data).subscribe(res => {
-       this.login(res.username, res.username + "123" ? res.username + "123" : "");
-      });
+  register(data: any): void {
+    this.http.post(`${environment.baseUrl}/register`, data, {
+      responseType: 'text'
+      , headers: this.httpHeaders
+    }).subscribe(reg=> {
+      if (reg) {
+        this.router.navigate(['login']);
+      }
     });
   }
 

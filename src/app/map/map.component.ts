@@ -8,6 +8,8 @@ import {InformationDialogComponent} from "./information-dialog/information-dialo
 import {LocationService} from "../../assets/services/location/location.service";
 // import {Booking} from "../../@types/entity/Booking";
 import {BookingService} from "../../assets/services/booking/booking.service";
+import {ActivatedRoute} from "@angular/router";
+import {BookingDTO} from "../../@types/entity/dto/BookingDTO";
 
 @Component({
   selector: 'app-map',
@@ -16,7 +18,7 @@ import {BookingService} from "../../assets/services/booking/booking.service";
 })
 export class MapComponent implements OnInit {
 
-  geojson = {
+  /*geojson = {
     'type': 'FeatureCollection',
     'features': [
       {
@@ -53,10 +55,14 @@ export class MapComponent implements OnInit {
         }
       }
     ]
-  };
-  // geojson: Booking[] = [];
+  };*/
 
-  constructor(private ngZone: NgZone, private dialog: MatDialog, private locationService: LocationService, private  bookingService: BookingService) {
+  geojson: BookingDTO[] = [];
+
+  constructor(private ngZone: NgZone, private dialog: MatDialog,
+              private locationService: LocationService,
+              private bookingService: BookingService,
+              private route: ActivatedRoute) {
   }
 
   map!: Map;
@@ -67,13 +73,21 @@ export class MapComponent implements OnInit {
   isClosed = true; // Da li je text stavki 'side-nav' menu prikazan
   blockUpdate = false; // Pomocna promenljiva koja resava bug koji ima 'side-nav'
   modeValue: string = "side";
+  start: any;
+  end: any;
+  placeName!: string;
+  latitude!: any;
+  longitude!: any;
 
   ngOnInit() {
-    this.bookingService.getAllByBookingStatusAndLocationCity("RESERVED", "Aleksinac").subscribe(data => {
-      console.log(data, "Booking")
-    });
+    this.start = this.route.snapshot.paramMap.get("start");
+    this.end = this.route.snapshot.paramMap.get("end");
+    this.placeName = this.route.snapshot.paramMap.get("placeName")!;
+    this.latitude = this.route.snapshot.paramMap.get("latitude");
+    this.longitude = this.route.snapshot.paramMap.get("longitude");
+    console.log(this.placeName.split(",")[0])
+    this.getAllBookingByCity(this.placeName.split(",")[0]);
     this.initMap();
-    this.getMarkerPlace();
     window.dispatchEvent(new Event("resize"));
     this.toggleText(true);
   }
@@ -96,7 +110,7 @@ export class MapComponent implements OnInit {
 
     this.map.on("click", (data) => {
       this.map.queryRenderedFeatures().map(loc => {
-        console.log(data.lngLat.lng)
+       /* console.log(data.lngLat.lng)
 
         let location: any = {};
         if (loc) {
@@ -113,7 +127,7 @@ export class MapComponent implements OnInit {
           this.locationService.save(location).subscribe(loc => {
 
           });
-        }
+        }*/
       });
 
     });
@@ -121,14 +135,16 @@ export class MapComponent implements OnInit {
       accessToken: mapboxgl.accessToken,
       mapboxgl: this.map,
       marker: false,
+      language: 'sr-Latn',
       zoom: 15,
       getItemValue: ({center, place_name}) => {
         this.remove();
-        this.markers.push(this.createMarker().setLngLat([center[0], center[1]]).setPopup(
-          new mapboxgl.Popup({offset: 25}) // add popups
-            .setText(place_name)
-        ).addTo(this.map));
-        this.markerEvent(center);
+         /* this.markers.push(this.createMarker().setLngLat([center[0], center[1]]).setPopup(
+            new mapboxgl.Popup({offset: 25}) // add popups
+              .setText(place_name)
+          ).addTo(this.map));*/
+          this.markerEvent(center);
+        this.getAllBookingByCity(place_name.split(",")[0]);
         return place_name;
       }
     });
@@ -137,9 +153,15 @@ export class MapComponent implements OnInit {
     console.log(mapboxgl)
   }
 
-  createMarker()
-    :
-    Marker {
+  getAllBookingByCity(placeName: string) {
+    this.bookingService.getAllBookingDTOByCity(placeName).subscribe(data => {
+      this.geojson = data;
+      this.getMarkerPlace();
+
+    });
+  }
+
+  createMarker(): Marker {
     let randomColor = Math.floor(Math.random() * 16777215).toString(16);
     this.marker = new Marker({color: "#" + randomColor});
     return this.marker;
@@ -152,34 +174,29 @@ export class MapComponent implements OnInit {
   }
 
   getMarkerPlace() {
-    // this.geojson.features.forEach((marker) => {
-    //   this.markers.push(this.createMarker()
-    //     .setLngLat([marker.geometry.coordinates[0], marker.geometry.coordinates[1]])
-    //     .setPopup(
-    //       new mapboxgl.Popup({offset: 25}) // add popups
-    //         .setText(
-    //           marker.properties.title + "\n\n" +
-    //           marker.properties.description
-    //         )
-    //     )
-    //     .addTo(this.map));
-    //   this.markerEvent(marker);
-    // });
+    this.geojson.forEach((marker) => {
+      this.markers.push(this.createMarker()
+        .setLngLat([marker.parking.location.longitude, marker.parking.location.latitude])
+        .setPopup(
+          new mapboxgl.Popup({offset: 25}) // add popups
+            .setText(
+              marker.parking.name + "\n\n" +
+              marker.parking.description
+            )
+        )
+        .addTo(this.map));
+      console.log(marker)
+      this.markerEvent(marker);
+    });
   }
 
-  markerEvent(marker
-                :
-                any
-  ) {
+  markerEvent(marker: any) {
     this.marker.getElement().addEventListener('click', () => {
       this.openDialog(marker)
     });
   }
 
-  openDialog(geo
-               :
-               any
-  ) {
+  openDialog(geo: any) {
     console.log(geo, "Geo")
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {};
@@ -193,10 +210,7 @@ export class MapComponent implements OnInit {
     console.log(JSON.stringify(this.map.getCenter()))
   }
 
-  toggleText(show
-               :
-               any
-  ) {
+  toggleText(show: any) {
     if (this.modeValue === "over") {
       return;
     }
@@ -210,10 +224,7 @@ export class MapComponent implements OnInit {
     window.dispatchEvent(new Event("resize"));
   }
 
-  toggleMenu(show
-               :
-               any
-  ) {
+  toggleMenu(show: any) {
     if (show == null) {
       this.opened = !this.opened;
     } else {
@@ -221,10 +232,7 @@ export class MapComponent implements OnInit {
     }
   }
 
-  onResize(event
-             :
-             any
-  ) {
+  onResize(event: any) {
     if (this.blockUpdate) {
       this.blockUpdate = false;
       return;

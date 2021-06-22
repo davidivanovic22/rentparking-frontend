@@ -7,14 +7,15 @@
     <nav>
       <button mat-button routerLink="home" (click)="clickHandler()" routerLinkActive="active">Home</button>
       <button mat-button routerLink="about" (click)="clickHandler()" routerLinkActive="active">About</button>
-      <button mat-button routerLink="login" (click)="clickHandler()" routerLinkActive="active">Login</button>
-      <button mat-button routerLink="sign-up" (click)="clickHandler()" routerLinkActive="active">Sign Up</button>
-      <button mat-button routerLink="contact" (click)="clickHandler()" routerLinkActive="active">Contact</button>
+      <button mat-button *ngIf="!isLoggedIn" routerLink="login" (click)="clickHandler()" routerLinkActive="active">Login</button>
+      <button mat-button *ngIf="!isLoggedIn" routerLink="register" (click)="clickHandler()" routerLinkActive="active">Sign Up</button>
+      <button mat-button *ngIf="!isLoggedIn" routerLink="profile" (click)="clickHandler()" routerLinkActive="active">Profile</button>
+      <button mat-button *ngIf="isLoggedIn"  (click)="clickHandler(); logout()" routerLinkActive="active">Logout</button>
     </nav>
   </mat-sidenav>
 
   <mat-sidenav-content (scroll)="onScroll($event)" class="sidenav-content">
-    <mat-toolbar class="mat-elevation-z11">
+    <mat-toolbar class="mat-elevation-z11" color="primary">
       <header>
         <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
         <div class="menuHeader">
@@ -24,13 +25,15 @@
           <button mat-button routerLink="home" routerLinkActive="active">Home</button>
           <button mat-button routerLink="about" routerLinkActive="active">About
           </button>
-          <button mat-button routerLink="contact" routerLinkActive="active">Contact
+          <button mat-button routerLink="login" *ngIf="!isLoggedIn" routerLinkActive="active">Login
           </button>
-          <button mat-button routerLink="login" routerLinkActive="active">Login
+          <button mat-button routerLink="register" *ngIf="!isLoggedIn" routerLinkActive="active">Sign Up
           </button>
-          <button mat-button routerLink="sign-up" routerLinkActive="active">Sign Up
+          <button mat-button routerLink="profile" *ngIf="isLoggedIn" routerLinkActive="active">Profile
           </button>
-        </nav>
+          <button mat-button *ngIf="isLoggedIn" (click)="logout()" routerLinkActive="active">Logout
+          </button>
+                 </nav>
       </header>
     </mat-toolbar>
     <section>

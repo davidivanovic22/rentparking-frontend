@@ -20,10 +20,6 @@ export class UserService {
     return this.http.post<void>(`${environment.baseUrl}/users`, user);
   }
 
-  saveSocialUser(socialUser: any): Observable<User> {
-    return this.http.post<User>(`${environment.baseUrl}/users/socialUser`, socialUser);
-  }
-
   update(user: any): Observable<void> {
     return this.http.put<void>(`${environment.baseUrl}/users`, user);
   }

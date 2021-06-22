@@ -13,10 +13,13 @@ export interface Booking extends Identifiable {
 }
 
 export namespace Booking {
-  export type KeyEnum = 'RESERVED' | 'CANCELLED';
+  export type KeyEnum = 'RESERVED' | 'CANCELLED' | 'PENDING' | 'WAITING' | 'RESCHEDULED';
   // @ts-ignore
   export const KeyEnum = {
     Reserved: 'PREZIME' as KeyEnum,
     Cancelled: 'CANCELLED' as KeyEnum,
+    Pending: 'PENDING' as KeyEnum,
+    Waiting: 'WAITING' as KeyEnum,
+    Rescheduled: 'RESCHEDULED' as KeyEnum,
   };
 }

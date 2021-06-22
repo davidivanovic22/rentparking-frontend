@@ -15,27 +15,30 @@
                (mouseenter)="toggleText(false)"
                (mouseleave)="toggleText(true)"
                [(opened)]="opened">
-      <mat-divider></mat-divider>
-    <cdk-virtual-scroll-viewport [itemSize]="10 * 5" class="example-viewport">
-      <div *cdkVirtualFor="let geo of geojson.features">
-        <mat-card class="home-card" (click)="openDialog(geo)">
-          <mat-card-content class="home-card-content">
-            <img mat-card-image
-                 src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-                 alt="Photo of a Shiba Inu">
-            <div>
-              <mat-card-title>{{geo.properties.description}}</mat-card-title>
-              <mat-card-subtitle>{{geo.geometry.coordinates}}</mat-card-subtitle>
-            </div>
-          </mat-card-content>
-        </mat-card>
-      </div>
-    </cdk-virtual-scroll-viewport>
+    <mat-divider></mat-divider>
+    <div *ngFor="let geo of geojson">
+      <mat-card class="home-card" (click)="openDialog(geo)">
+        <mat-card-content class="home-card-content">
+          <img mat-card-image
+               [src]="geo?.parking?.parkingPic"
+               alt="Parking">
+          <div>
+            <mat-card-title>{{geo?.parking?.name}}</mat-card-title>
+            <mat-card-subtitle>{{geo?.parking?.description}}</mat-card-subtitle>
+            <mat-card-subtitle class="bottomContent">
+                {{'$' + geo?.parking?.price}}
+                <span *ngIf="geo?.booking?.bookingStatus === 'RESERVED'" class="bookingStatus">RESERVED</span>
+                <span *ngIf="geo?.booking?.bookingStatus !== 'RESERVED'" class="bookingStatus">FREE</span>
+            </mat-card-subtitle>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
     <mat-divider></mat-divider>
   </mat-sidenav>
   <mat-sidenav-content (window:resize)="onResize($event)">
     <div id="map">
-          </div>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
 

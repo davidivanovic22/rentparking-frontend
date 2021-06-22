@@ -17,8 +17,16 @@ body {
 
 .mat-sidenav-container .mat-sidenav {
   padding: 10px;
+  width: 320px;
+}
+.bottomContent{
+  width: 100%;
+  margin: 0 !important;
 }
 
+.bookingStatus{
+  float: right;
+}
 
 .fab {
   background: whitesmoke;
@@ -93,27 +101,16 @@ body {
   cursor: pointer;
 }
 
-.example-viewport {
-  height: 80vh;
-  max-height: 80vh;
-  width: 300px;
-  max-width: 300px;
-}
-
 mat-sidenav-content.mat-drawer-content.mat-sidenav-content {
   transition: all 0.5s ease !important;
 }
 
-
+.mat-drawer-inner-container {
+  max-height: 80vh !important;
+}
 
 @media screen and (width: 375px) {
   .mat-drawer-inner-container {
     overflow: hidden !important;
-  }
-  .example-viewport {
-    height: 70vh;
-    max-height: 70vh;
-    width: 300px;
-    max-width: 300px;
   }
 }
