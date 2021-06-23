@@ -19,16 +19,29 @@ export class BookingService {
     return this.http.get<any>(`${environment.baseUrl}/bookings/` + bookingStatus + `/` + city +`/booking_status_and_location_city`);
   }
 
-  getAllBookingDTOByCity(city: string){
-    return this.http.get<any>(`${environment.baseUrl}/bookings/`+ city +`/booking_dto_city`);
+
+  getAllBookingByUser(userId: number): Observable<any> {
+    return this.http.get<any>(`${environment.baseUrl}/bookings/` + userId +`/user`);
   }
 
-  save(booking: any): Observable<void> {
+  getAllBookingDTO(city: string, from: Date, to:Date){
+    if(from && to){
+      return this.http.get<any>(`${environment.baseUrl}/bookings/`+ city +`/booking_dto` + `?from=`+ from+`&to=`+ to);
+    }else{
+      return this.http.get<any>(`${environment.baseUrl}/bookings/`+ city +`/booking_dto`);
+    }
+  }
+
+  save(booking:any): Observable<void> {
     return this.http.post<void>(`${environment.baseUrl}/bookings`, booking);
   }
 
   update(booking: any): Observable<void> {
     return this.http.put<void>(`${environment.baseUrl}/bookings`, booking);
+  }
+
+ automaticChangeBookingStatus(): Observable<any> {
+    return this.http.put<any>(`${environment.baseUrl}/bookings/automatic_change_booking_status`, undefined);
   }
 
   getById(bookingId: number): Observable<any> {

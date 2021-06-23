@@ -3,16 +3,18 @@
     <mat-card-header>
     </mat-card-header>
     <div class="mycont">
-      <img src="https://lh3.googleusercontent.com/a/AATXAJymt7YiT-UM1NDYK-Fov3MOlGUoL4VAB8MzMU7J=s96-c" mat-card-image  class="profileImage" alt="User">
+      <img src="https://lh3.googleusercontent.com/a/AATXAJymt7YiT-UM1NDYK-Fov3MOlGUoL4VAB8MzMU7J=s96-c" mat-card-image
+           class="profileImage" alt="User">
     </div>
     <mat-card-content>
-      <form >
+      <form>
         <mat-form-field>
-          <input readonly matInput  placeholder="Full name" >
-        </mat-form-field><br>
+          <input readonly matInput placeholder="Full name">
+        </mat-form-field>
+        <br>
 
         <mat-form-field>
-          <input readonly matInput  placeholder="Email" >
+          <input readonly matInput placeholder="Email">
         </mat-form-field>
       </form>
     </mat-card-content>
@@ -20,10 +22,23 @@
 
     </mat-card-actions>
   </mat-card>
-<!--  <div class="projects">-->
-<!--    <h2 class="dropTitle">My Projects</h2>-->
-<!--    <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">-->
-<!--      <div class="example-box" *ngFor="let project of projectList" cdkDrag>{{project.name}}</div>-->
-<!--    </div>-->
-<!--  </div>-->
+  <div class="bookings">
+    <h2 class="dropTitle">My Bookings</h2>
+    <mat-card class="home-card" *ngFor="let booking of bookingList" (click)="openDialog(booking)">
+      <mat-card-content class="home-card-content">
+        <img mat-card-image
+             [src]="booking?.parking?.parkingPic"
+             alt="Parking">
+        <div>
+          <mat-card-title>{{booking?.parking?.name}}</mat-card-title>
+          <p>{{booking?.parking?.description}}</p>
+          <mat-card-subtitle class="bottomContent">
+            <span class="bookingPrice">{{'$' + booking?.parking?.price}}</span>
+            <span *ngIf="booking?.bookingStatus === 'RESERVED'" class="bookingStatus">RESERVED</span>
+            <span *ngIf="booking?.bookingStatus !== 'RESERVED'" class="bookingStatus">FREE</span>
+          </mat-card-subtitle>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>

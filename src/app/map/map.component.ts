@@ -10,6 +10,7 @@ import {LocationService} from "../../assets/services/location/location.service";
 import {BookingService} from "../../assets/services/booking/booking.service";
 import {ActivatedRoute} from "@angular/router";
 import {BookingDTO} from "../../@types/entity/dto/BookingDTO";
+import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-map',
@@ -17,46 +18,6 @@ import {BookingDTO} from "../../@types/entity/dto/BookingDTO";
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit {
-
-  /*geojson = {
-    'type': 'FeatureCollection',
-    'features': [
-      {
-        'type': 'Feature',
-        'geometry': {
-          'type': 'Point',
-          'coordinates': [-77.032, 38.913]
-        },
-        'properties': {
-          'title': 'Mapbox',
-          'description': 'Washington, D.C.'
-        }
-      },
-      {
-        'type': 'Feature',
-        'geometry': {
-          'type': 'Point',
-          'coordinates': [-122.414, 30.776]
-        },
-        'properties': {
-          'title': 'Mapbox',
-          'description': 'San Francisco, California'
-        }
-      },
-      {
-        'type': 'Feature',
-        'geometry': {
-          'type': 'Point',
-          'coordinates': [-120.414, 37.776]
-        },
-        'properties': {
-          'title': 'Mapbox',
-          'description': 'San Francisco, California'
-        }
-      }
-    ]
-  };*/
-
   geojson: BookingDTO[] = [];
 
   constructor(private ngZone: NgZone, private dialog: MatDialog,
@@ -80,13 +41,19 @@ export class MapComponent implements OnInit {
   longitude!: any;
 
   ngOnInit() {
-    this.start = this.route.snapshot.paramMap.get("start");
-    this.end = this.route.snapshot.paramMap.get("end");
+    console.log(this.route.snapshot.paramMap.get("start"))
+    if(this.route.snapshot.paramMap.get("start") != "null"){
+      // 2021-06-22T15:10:10
+    this.start = formatDate(this.route.snapshot.paramMap.get("start")!, "yyyy-MM-ddTHH:mm:ss", "en");
+    }
+    if(this.route.snapshot.paramMap.get("end") != "null"){
+      this.end = formatDate(this.route.snapshot.paramMap.get("end")!, "yyyy-MM-ddTHH:mm:ss", "en");
+    }
     this.placeName = this.route.snapshot.paramMap.get("placeName")!;
     this.latitude = this.route.snapshot.paramMap.get("latitude");
     this.longitude = this.route.snapshot.paramMap.get("longitude");
     console.log(this.placeName.split(",")[0])
-    this.getAllBookingByCity(this.placeName.split(",")[0]);
+    this.getAllBookingDTO(this.placeName.split(",")[0], this.start, this.end);
     this.initMap();
     window.dispatchEvent(new Event("resize"));
     this.toggleText(true);
@@ -110,24 +77,24 @@ export class MapComponent implements OnInit {
 
     this.map.on("click", (data) => {
       this.map.queryRenderedFeatures().map(loc => {
-       /* console.log(data.lngLat.lng)
+        /* console.log(data.lngLat.lng)
 
-        let location: any = {};
-        if (loc) {
-          location.name = loc.properties!.name;
-          location.address = loc.properties!.name;
-        }
-        location.city = "Leskovac";
-        // @ts-ignore
-        location.longitude = loc.geometry.coordinates[0][0];
-        // @ts-ignore
-        location.latitude = loc.geometry.coordinates[0][1];
-        if (location.name) {
-          console.log(location)
-          this.locationService.save(location).subscribe(loc => {
+         let location: any = {};
+         if (loc) {
+           location.name = loc.properties!.name;
+           location.address = loc.properties!.name;
+         }
+         location.city = "Leskovac";
+         // @ts-ignore
+         location.longitude = loc.geometry.coordinates[0][0];
+         // @ts-ignore
+         location.latitude = loc.geometry.coordinates[0][1];
+         if (location.name) {
+           console.log(location)
+           this.locationService.save(location).subscribe(loc => {
 
-          });
-        }*/
+           });
+         }*/
       });
 
     });
@@ -139,12 +106,12 @@ export class MapComponent implements OnInit {
       zoom: 15,
       getItemValue: ({center, place_name}) => {
         this.remove();
-         /* this.markers.push(this.createMarker().setLngLat([center[0], center[1]]).setPopup(
-            new mapboxgl.Popup({offset: 25}) // add popups
-              .setText(place_name)
-          ).addTo(this.map));*/
-          this.markerEvent(center);
-        this.getAllBookingByCity(place_name.split(",")[0]);
+        /* this.markers.push(this.createMarker().setLngLat([center[0], center[1]]).setPopup(
+           new mapboxgl.Popup({offset: 25}) // add popups
+             .setText(place_name)
+         ).addTo(this.map));*/
+        this.markerEvent(center);
+       // this.getAllBookingByCity(place_name.split(",")[0]);
         return place_name;
       }
     });
@@ -153,11 +120,12 @@ export class MapComponent implements OnInit {
     console.log(mapboxgl)
   }
 
-  getAllBookingByCity(placeName: string) {
-    this.bookingService.getAllBookingDTOByCity(placeName).subscribe(data => {
+  getAllBookingDTO(placeName: string, from?: any, to?: any) {
+    console.log(from, " " ,to)
+    this.bookingService.getAllBookingDTO(placeName, from, to).subscribe(data => {
       this.geojson = data;
+      console.log(this.geojson)
       this.getMarkerPlace();
-
     });
   }
 

@@ -1,6 +1,7 @@
 import {Component, DoCheck, HostListener, OnInit, ViewChild} from '@angular/core';
 import {MatSidenav} from "@angular/material/sidenav";
 import {AuthenticationService} from "../assets/services/auth/authentication.service";
+import {BookingService} from "../assets/services/booking/booking.service";
 
 @Component({
   selector: 'app-root',
@@ -20,10 +21,11 @@ export class AppComponent implements OnInit, DoCheck {
 
   opened!: boolean;
 
-  constructor(private authService: AuthenticationService) {
+  constructor(private authService: AuthenticationService, private bookingService: BookingService) {
   }
 
   ngOnInit() {
+    this.automaticChangeBookingStatus();
   }
 
   clickHandler() {
@@ -32,6 +34,12 @@ export class AppComponent implements OnInit, DoCheck {
 
   ngDoCheck(): void {
     this.isLoggedIn = this.authService.isLoggedIn;
+  }
+
+  automaticChangeBookingStatus() {
+    this.bookingService.automaticChangeBookingStatus().subscribe(() => {
+
+    });
   }
 
   logout() {

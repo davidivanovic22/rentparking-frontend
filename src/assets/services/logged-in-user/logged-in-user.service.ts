@@ -22,4 +22,9 @@ export class LoggedInUserService {
     return this.http.get<any>(`${environment.baseUrl}/user/logged-in`, { responseType: 'json' });
   }
 
+
+  getAllBookingForLoggedInUser(){
+    return this.http.get<any>(`${environment.baseUrl}/logged-in-user/bookings`, { responseType: 'json' });
+  }
+
 }
