@@ -41,13 +41,16 @@ export class MapComponent implements OnInit {
   longitude!: any;
 
   ngOnInit() {
-    console.log(this.route.snapshot.paramMap.get("start"))
-    if(this.route.snapshot.paramMap.get("start") != "null"){
-      // 2021-06-22T15:10:10
-    this.start = formatDate(this.route.snapshot.paramMap.get("start")!, "yyyy-MM-ddTHH:mm:ss", "en");
+    if(this.route.snapshot.paramMap.has("start")){
+      if(this.route.snapshot.paramMap.get("start") != "null"){
+        // 2021-06-22T15:10:10
+        this.start = formatDate(this.route.snapshot.paramMap.get("start")!, "yyyy-MM-ddTHH:mm:ss", "en");
+      }
     }
-    if(this.route.snapshot.paramMap.get("end") != "null"){
-      this.end = formatDate(this.route.snapshot.paramMap.get("end")!, "yyyy-MM-ddTHH:mm:ss", "en");
+    if(this.route.snapshot.paramMap.has("end")) {
+      if (this.route.snapshot.paramMap.get("end") != "null") {
+        this.end = formatDate(this.route.snapshot.paramMap.get("end")!, "yyyy-MM-ddTHH:mm:ss", "en");
+      }
     }
     this.placeName = this.route.snapshot.paramMap.get("placeName")!;
     this.latitude = this.route.snapshot.paramMap.get("latitude");

@@ -8,6 +8,7 @@ import {Booking} from "../../@types/entity/Booking";
 import {LoggedInUserService} from "../../assets/services/logged-in-user/logged-in-user.service";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {InformationDialogComponent} from "../map/information-dialog/information-dialog.component";
+import {User} from "../../@types/entity/User";
 
 @Component({
   selector: 'app-profile',
@@ -20,11 +21,16 @@ export class ProfileComponent implements OnInit {
     to: new FormControl('', Validators.required),
   });
   bookingList: Booking[] = [];
+  user!: User;
 
   constructor(private loggedInService: LoggedInUserService, private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
+    this.loggedInService.getLoggedInUser().subscribe(data => {
+      console.log(data)
+      this.user = data;
+    })
     this.getAllBookingForLoggedInUser();
   }
 
@@ -40,16 +46,7 @@ export class ProfileComponent implements OnInit {
 
   save() {
     let form = this.form.value;
-    // this.userService.getById(1).subscribe(data => {
-    //   form.user = data;
-    //   this.parkingService.getById(5).subscribe(data => {
-    //     form.parking = data;
-    //     form.bookingStatus = "RESERVED";
-    //     this.bookingService.save(form).subscribe(() => {
-    //
-    //     });
-    //   });
-    // });
+
   }
 
   openDialog(booking: Booking) {

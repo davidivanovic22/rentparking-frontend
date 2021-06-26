@@ -13,13 +13,7 @@ export class LoggedInUserService {
   constructor(private http: HttpClient) { }
 
   getLoggedInUser(): Observable<any> {
-    if (this.user) {
-      return new Observable<any>(observer => {
-        observer.next(this.user);
-        observer.complete();
-      });
-    }
-    return this.http.get<any>(`${environment.baseUrl}/user/logged-in`, { responseType: 'json' });
+    return this.http.get<any>(`${environment.baseUrl}/logged-in-user`, { responseType: 'json' });
   }
 
 

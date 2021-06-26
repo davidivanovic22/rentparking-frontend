@@ -9,12 +9,12 @@
     <mat-card-content>
       <form>
         <mat-form-field>
-          <input readonly matInput placeholder="Full name">
+          <input readonly matInput placeholder="Full name" [value]="user?.firstName + ' ' + user?.lastName">
         </mat-form-field>
         <br>
 
         <mat-form-field>
-          <input readonly matInput placeholder="Email">
+          <input readonly matInput placeholder="Email" [value]="user?.email">
         </mat-form-field>
       </form>
     </mat-card-content>
